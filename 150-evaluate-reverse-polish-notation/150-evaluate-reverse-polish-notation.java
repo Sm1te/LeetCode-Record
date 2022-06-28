@@ -20,7 +20,6 @@ class Solution {
                 int second = stack.pop();
                 stack.add(first * second);
             }else{
-                System.out.println(str);
                 stack.add(Integer.valueOf(str));
             }
         }
