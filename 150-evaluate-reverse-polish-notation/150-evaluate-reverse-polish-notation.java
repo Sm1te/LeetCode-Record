@@ -1,28 +1,43 @@
 class Solution {
+    
     public int evalRPN(String[] tokens) {
-        Stack<Integer> stack = new Stack();
-      
-        for(String str : tokens){
-            if(str.equals("+")){
-                int first = stack.pop();
-                int second = stack.pop();
-                stack.add(first + second);
-            }else if(str.equals("-")){
-                int first = stack.pop();
-                int second = stack.pop();
-                stack .add(second - first);
-            }else if(str.equals("/")){
-                int first = stack.pop();
-                int second = stack.pop();
-                stack.add(second / first);
-            }else if(str.equals("*")){
-                int first = stack.pop();
-                int second = stack.pop();
-                stack.add(first * second);
-            }else{
-                stack.add(Integer.valueOf(str));
+        
+        Stack<Integer> stack = new Stack<>();
+        
+        for (String token : tokens) {
+            
+            if (!isOperator(token)) {
+                stack.push(Integer.valueOf(token));
+                continue;
             }
+            
+            int number2 = stack.pop();
+            int number1 = stack.pop();
+            
+            int result = 0;
+            
+            switch (token) {
+                case "+":
+                    result = number1 + number2;
+                    break;
+                case "-":
+                    result = number1 - number2;
+                    break;
+                case "*":
+                    result = number1 * number2;
+                    break;
+                case "/":
+                    result = number1 / number2;
+                    break;
+            }
+            
+            stack.push(result);
+            
         }
+        
         return stack.pop();
+    }
+    private static boolean isOperator(String val) {
+        return val.equals("+") || val.equals("-") || val.equals("/") || val.equals("*");
     }
 }
