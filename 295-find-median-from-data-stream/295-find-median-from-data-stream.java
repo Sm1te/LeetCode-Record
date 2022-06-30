@@ -1,5 +1,5 @@
 class MedianFinder {
-    private PriorityQueue<Integer> small = new PriorityQueue<>(Collections.reverseOrder());
+    private PriorityQueue<Integer> small = new PriorityQueue<>((a, b) -> b - a);
     private PriorityQueue<Integer> large = new PriorityQueue<>();
     private boolean even = true;
 
