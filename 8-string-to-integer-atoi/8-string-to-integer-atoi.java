@@ -3,11 +3,8 @@ class Solution {
         int sign = 1;
         int result = 0;
         int index = 0;
+        s = s.trim();
         int n = s.length();
-        
-        // Discard all spaces from the beginning of the input string.
-        while(index < n && s.charAt(index) == ' ')
-            index++;
         
         // sign = +1, if it's positive number, otherwise sign = -1. 
         if (index < n && s.charAt(index) == '+') {
