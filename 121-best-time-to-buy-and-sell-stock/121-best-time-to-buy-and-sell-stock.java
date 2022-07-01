@@ -1,6 +1,5 @@
 class Solution {
     public int maxProfit(int[] prices) {
-        int[][] dp = new int[prices.length][2];
         int t0_0 = 0;
         int t0_1 = -prices[0];
         
