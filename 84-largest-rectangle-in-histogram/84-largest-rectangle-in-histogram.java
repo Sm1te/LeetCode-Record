@@ -1,33 +1,35 @@
 class Solution {
     public int largestRectangleArea(int[] heights) {
-        int n = heights.length;
-        int[] left = new int[n];
-        int[] right = new int[n];
-        
-        
-        Deque<Integer> mono_stack = new ArrayDeque();
-        for(int i = 0; i < n; i++){
-            while(!mono_stack.isEmpty() && heights[mono_stack.peek()] >= heights[i]){
-                mono_stack.pop();
-            }
-            left[i] = mono_stack.isEmpty() ? -1 : mono_stack.peek();
-            mono_stack.push(i);
+        int len = heights.length;
+        if (len == 0) {
+            return 0;
         }
-        
-        mono_stack.clear();
-        
-        for(int i = n - 1; i >= 0; i--){
-            while(!mono_stack.isEmpty() && heights[mono_stack.peek()] >= heights[i]){
-                mono_stack.pop();
-            }
-            right[i] = mono_stack.isEmpty() ? n : mono_stack.peek();
-            mono_stack.push(i);
+
+        if (len == 1) {
+            return heights[0];
         }
-        
-        
+
         int res = 0;
-        for(int i = 0; i < n; i++){
-            res = Math.max(res, (right[i] - left[i] - 1) * heights[i]);
+
+        int[] newHeights = new int[len + 2];
+        newHeights[0] = 0;
+        System.arraycopy(heights, 0, newHeights, 1, len);
+        newHeights[len + 1] = 0;
+        len += 2;
+        heights = newHeights;
+
+        Deque<Integer> stack = new ArrayDeque<>(len);
+        // 先放入哨兵，在循环里就不用做非空判断
+        stack.addLast(0);
+        
+        for (int i = 1; i < len; i++) {
+            while (heights[i] < heights[stack.peekLast()]) {
+                int curHeight = heights[stack.pollLast()];
+                //区域是被夹住的
+                int curWidth = i - stack.peekLast() - 1;
+                res = Math.max(res, curHeight * curWidth);
+            }
+            stack.addLast(i);
         }
         
         return res;
