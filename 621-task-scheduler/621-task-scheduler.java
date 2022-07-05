@@ -6,18 +6,18 @@ class Solution {
             frequencies[t - 'A']++;
         }
 
-        Arrays.sort(frequencies);
-        
         // max frequency
-        int f_max = frequencies[25];
-        int idle_time = (f_max - 1) * n;
-        
-        for(int i = frequencies.length -2; i >= 0 && idle_time > 0; i--){
-            idle_time -= Math.min(f_max - 1, frequencies[i]);
+        int f_max = 0;
+        for (int f : frequencies) {
+            f_max = Math.max(f_max, f);
         }
         
-        idle_time = Math.max(0, idle_time);
+        // count the most frequent tasks
+        int n_max = 0;
+        for (int f : frequencies) {
+            if (f == f_max) n_max++;
+        }
         
-        return idle_time + tasks.length;
+        return Math.max(tasks.length, (f_max - 1) * (n + 1) + n_max);
     }
 }
