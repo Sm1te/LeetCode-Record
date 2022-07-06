@@ -20,9 +20,8 @@ public class Solution extends VersionControl {
         } else {
             if (isBadVersion(n)) {
                 return n;
-            } else {
-                throw new AssertionError("no bad version");
             }
         }
+        return n;
     }
 }
