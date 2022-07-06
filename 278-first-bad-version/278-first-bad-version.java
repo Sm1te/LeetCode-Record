@@ -17,11 +17,8 @@ public class Solution extends VersionControl {
         
         if (right != n) {
             return right;
-        } else {
-            if (isBadVersion(n)) {
-                return n;
-            }
         }
+        
         return n;
     }
 }
