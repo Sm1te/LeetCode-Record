@@ -17,32 +17,25 @@ class Node {
     }
 }
 */
-
 class Solution {
+    Map<Node, Node> visited = new HashMap();
     public Node cloneGraph(Node node) {
+        // 如果这层的node是null直接返回
         if (node == null) {
             return node;
         }
+        // 如果之前有，就直接返回，这样不会形成环
+        if(visited.containsKey(node))
+            return visited.get(node);
         
+        Node tmp = new Node(node.val, new ArrayList<Node>());
+        visited.put(node, tmp);
         
-        Map<Node, Node> visited = new HashMap();
-        Queue<Node> queue = new LinkedList();
-        queue.add(node);
-        visited.put(node, new Node(node.val, new ArrayList()));
+        // 也要复制他们的child
+        for(Node next : node.neighbors)
+            tmp.neighbors.add(cloneGraph(next));
         
-        while(!queue.isEmpty()){
-            Node tmp = queue.poll();
-            for(Node neighbor : tmp.neighbors){
-                if(!visited.containsKey(neighbor)){
-                    queue.offer(neighbor);
-                    
-                    visited.put(neighbor, new Node(neighbor.val, new ArrayList()));
-                }
-                visited.get(tmp).neighbors.add(visited.get(neighbor));
-                
-            }
-        }
-        
-        return visited.get(node);
+        // 最终返回
+        return tmp;
     }
 }
