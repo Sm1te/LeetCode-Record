@@ -29,8 +29,7 @@ class Solution {
                 if(indegree[next] == 0)
                     queue.offer(next);
             }
-            
-            
+   
         }
         
         return count == numCourses;
