@@ -1,4 +1,10 @@
 class Solution {
+    /*
+    1. 原数组一定要先排序
+    2. 如果开始有 > 0的作为起点了，就不可能有加起来 = 0 的sum了
+    3. 查重要在内部查重
+    4. res.add(Arrays.asList(xxx));
+    */
     public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> res = new ArrayList();
         if(nums.length < 3)
