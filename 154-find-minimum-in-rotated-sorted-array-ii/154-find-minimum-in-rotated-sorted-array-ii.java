@@ -1,21 +1,17 @@
 class Solution {
     public int findMin(int[] nums) {
-        if(nums.length == 1){
-            return nums[0];
-        }
-        
-        int lo = 0, hi = nums.length - 1;
-        while(lo <= hi){
-            int mid = (hi + lo) >> 1;
-            if(nums[mid] < nums[hi]){
-                hi = mid;
-            }else if(nums[mid] > nums[hi]){
-                lo = mid + 1;
-            }else{
-                hi--;
+        int low = 0;
+        int high = nums.length - 1;
+        while (low < high) {
+            int pivot = low + (high - low) / 2;
+            if (nums[pivot] < nums[high]) {
+                high = pivot;
+            } else if (nums[pivot] > nums[high]) {
+                low = pivot + 1;
+            } else {
+                high -= 1;
             }
         }
-        
-        return nums[lo];
+        return nums[low];
     }
 }
