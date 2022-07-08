@@ -4,16 +4,18 @@ class Solution {
             return nums[0];
         }
         
-        int first = nums[0];
-        int index = 0;
-        for(int i = 0; i < nums.length; i++){
-            if(nums[i] < first){
-                index = i;
-                break;
-            }  
-            first = nums[i];
+        int lo = 0, hi = nums.length - 1;
+        while(lo <= hi){
+            int mid = (hi + lo) >> 1;
+            if(nums[mid] < nums[hi]){
+                hi = mid;
+            }else if(nums[mid] > nums[hi]){
+                lo = mid + 1;
+            }else{
+                hi--;
+            }
         }
         
-        return Math.min(nums[index], nums[0]);
+        return nums[lo];
     }
 }
