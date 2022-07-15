@@ -1,41 +1,44 @@
 class Solution {
-    int m, n;
-    boolean res = false;
-    int[][] seen;
+    boolean ok = false;
+    boolean[][] visited;
     public boolean exist(char[][] board, String word) {
-        m = board.length;
-        n = board[0].length;
-        seen =  new int[m][n];
+        int m = board.length;
+        int n = board[0].length;
+        visited = new boolean[m][n];
         int index = 0;
+
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
-                backTrack(0, i, j, word, board);
-                if(res)
+                if(board[i][j] == word.charAt(0))
+                    dfs(index, word, board, i, j);
+                
+                if(ok)
                     return true;
             }
         }
-        
         return false;
     }
-    
-    public void backTrack(int index, int x, int y, String word,char[][] board){
-        if(x == m || y == n || x < 0 || y < 0 || seen[x][y] == 1 || index >= word.length())
-            return;
-        
-        if(word.charAt(index) == board[x][y]){
-            seen[x][y] = 1;
-            if(index == word.length() - 1){
-                res = true;
-                return; 
-            }else{
-                backTrack(index + 1, x + 1, y, word, board);
-                backTrack(index + 1, x - 1, y, word, board);
-                backTrack(index + 1, x, y + 1, word, board);
-                backTrack(index + 1, x, y - 1, word, board);
-            }
-            seen[x][y] = 0; 
-        }
-        return;
 
+    public void dfs(int index, String word, char[][] board, int i, int j){
+        int m = board.length;
+        int n = board[0].length;
+
+        if(i >= m || j >= n || i < 0 || j < 0 || board[i][j] != word.charAt(index) || visited[i][j])
+            return;
+
+        visited[i][j] = true;
+
+        if(word.length() == index + 1){
+            ok = true;
+            return;
+        }
+            
+
+        dfs(index + 1, word, board, i + 1, j);
+        dfs(index + 1, word, board, i, j + 1);
+        dfs(index + 1, word, board, i - 1, j);
+        dfs(index + 1, word, board, i, j - 1);
+
+        visited[i][j] = false;
     }
 }
