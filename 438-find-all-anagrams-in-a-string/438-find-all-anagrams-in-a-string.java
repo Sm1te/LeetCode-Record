@@ -16,12 +16,12 @@ class Solution {
             right++;
             
             while(count == 0){
+                if(right - left == p.length())
+                    res.add(left);
                 char leftChar = s.charAt(left);
                 map[leftChar]++;
                 if(map[leftChar] > 0){
                     count++;
-                    if(right - left == p.length())
-                        res.add(left);
                 }
                 left++;
             }
