@@ -7,14 +7,17 @@ class Solution {
         if (u == -1) return 1;
         return qpow(dfs(a, b, u - 1), 10) * qpow(a, b[u]) % MOD;
     }
-    int qpow(int a, int b) {
-        int ans = 1;
+    int qpow(int a, int k) {
+        if (k == 0) return 1;
         a %= MOD;
-        while (b != 0) {
-            if ((b & 1) != 0) ans = ans * a % MOD;
-            a = a * a % MOD;
-            b >>= 1;
+
+        if (k % 2 == 1) {
+            // k 是奇数
+            return (a * qpow(a, k - 1)) % MOD;
+        } else {
+            // k 是偶数
+            int sub = qpow(a, k / 2);
+            return (sub * sub) % MOD;
         }
-        return ans;
     }
 }
