@@ -1,10 +1,10 @@
 class Solution {
     public int nthUglyNumber(int n) {
-        int[] dp = new int[n];  // 使用dp数组来存储丑数序列
-        dp[0] = 1;  // dp[0]已知为1
-        int a = 0, b = 0, c = 0;    // 下个应该通过乘2来获得新丑数的数据是第a个， 同理b, c
+        int[] dp = new int[n + 1];  // 使用dp数组来存储丑数序列
+        dp[1] = 1; dp[0] = 1;  // dp[0]已知为1
+        int a = 1, b = 1, c = 1;    // 下个应该通过乘2来获得新丑数的数据是第a个， 同理b, c
 
-        for(int i = 1; i < n; i++){
+        for(int i = 2; i <= n; i++){
             // 第a丑数个数需要通过乘2来得到下个丑数，第b丑数个数需要通过乘2来得到下个丑数，同理第c个数
             int n2 = dp[a] * 2, n3 = dp[b] * 3, n5 = dp[c] * 5;
             dp[i] = Math.min(Math.min(n2, n3), n5);
@@ -18,6 +18,6 @@ class Solution {
                 c++; // 第 c个数已经通过乘5得到了一个新的丑数，那下个需要通过乘5得到一个新的丑数的数应该是第(c+1)个数
             }
         }
-        return dp[n-1];
+        return dp[n];
     }
 }
